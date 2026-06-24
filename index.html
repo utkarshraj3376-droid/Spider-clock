@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spider Clock</title>
+<style>
+body{
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    background:black;
+}
+
+.clock{
+    position:relative;
+    width:300px;
+    height:300px;
+}
+
+.spider{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+.body{
+    width:50px;
+    height:50px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:-25px;
+    left:-25px;
+}
+
+.hand{
+    position:absolute;
+    width:4px;
+    background:white;
+    transform-origin:bottom center;
+    left:-2px;
+}
+
+.hour{
+    height:60px;
+}
+
+.minute{
+    height:90px;
+}
+
+.second{
+    height:110px;
+    background:red;
+}
+</style>
+</head>
+<body>
+
+<div class="clock">
+    <div class="spider">
+        <div class="body"></div>
+        <div class="hand hour" id="hour"></div>
+        <div class="hand minute" id="minute"></div>
+        <div class="hand second" id="second"></div>
+    </div>
+</div>
+
+<script>
+function updateClock(){
+    const now = new Date();
+
+    const sec = now.getSeconds();
+    const min = now.getMinutes();
+    const hr = now.getHours()%12;
+
+    document.getElementById("second").style.transform =
+        `rotate(${sec*6}deg)`;
+
+    document.getElementById("minute").style.transform =
+        `rotate(${min*6}deg)`;
+
+    document.getElementById("hour").style.transform =
+        `rotate(${hr*30 + min*0.5}deg)`;
+}
+
+setInterval(updateClock,1000);
+updateClock();
+</script>
+
+</body>
+</html>
