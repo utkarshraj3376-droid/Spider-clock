@@ -1,94 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spider Clock</title>
+
 <style>
 body{
     margin:0;
+    background:#000;
     display:flex;
     justify-content:center;
     align-items:center;
     height:100vh;
-    background:black;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
 }
 
 .clock{
     position:relative;
-    width:300px;
-    height:300px;
+    width:500px;
+    height:500px;
+}
+
+.number{
+    position:absolute;
+    color:#666;
+    font-size:40px;
+    font-weight:bold;
+    left:50%;
+    top:50%;
+    transform-origin:center;
 }
 
 .spider{
     position:absolute;
-    top:50%;
     left:50%;
+    top:50%;
     transform:translate(-50%,-50%);
 }
 
-.body{
-    width:50px;
-    height:50px;
+.spider-body{
+    width:55px;
+    height:75px;
     background:white;
     border-radius:50%;
     position:absolute;
-    top:-25px;
-    left:-25px;
+    left:-27px;
+    top:-35px;
+    box-shadow:0 0 20px white;
+}
+
+.leg{
+    position:absolute;
+    width:80px;
+    height:3px;
+    background:white;
+    transform-origin:left center;
 }
 
 .hand{
     position:absolute;
-    width:4px;
-    background:white;
+    left:0;
+    top:0;
     transform-origin:bottom center;
-    left:-2px;
 }
 
 .hour{
-    height:60px;
+    width:6px;
+    height:110px;
+    background:white;
 }
 
 .minute{
-    height:90px;
+    width:4px;
+    height:150px;
+    background:white;
 }
 
 .second{
-    height:110px;
-    background:red;
+    width:2px;
+    height:190px;
+    background:#aaa;
+}
+
+.web{
+    position:absolute;
+    border:2px solid rgba(255,255,255,0.3);
+    border-radius:50%;
+}
+
+.web1{
+    width:150px;
+    height:150px;
+    top:120px;
+    left:80px;
+}
+
+.web2{
+    width:150px;
+    height:150px;
+    top:120px;
+    right:80px;
+}
+
+.web3{
+    width:100px;
+    height:100px;
+    bottom:90px;
+    left:120px;
+}
+
+.web4{
+    width:100px;
+    height:100px;
+    bottom:90px;
+    right:120px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="clock">
-    <div class="spider">
-        <div class="body"></div>
-        <div class="hand hour" id="hour"></div>
-        <div class="hand minute" id="minute"></div>
-        <div class="hand second" id="second"></div>
-    </div>
+
+<div class="web web1"></div>
+<div class="web web2"></div>
+<div class="web web3"></div>
+<div class="web web4"></div>
+
+<div id="numbers"></div>
+
+<div class="spider">
+
+<div class="hand hour" id="hour"></div>
+<div class="hand minute" id="minute"></div>
+<div class="hand second" id="second"></div>
+
+<div class="spider-body"></div>
+
+<div class="leg" style="transform:rotate(-70deg)"></div>
+<div class="leg" style="transform:rotate(-40deg)"></div>
+<div class="leg" style="transform:rotate(-20deg)"></div>
+<div class="leg" style="transform:rotate(20deg)"></div>
+<div class="leg" style="transform:rotate(40deg)"></div>
+<div class="leg" style="transform:rotate(70deg)"></div>
+
+</div>
 </div>
 
 <script>
-function updateClock(){
-    const now = new Date();
 
-    const sec = now.getSeconds();
-    const min = now.getMinutes();
-    const hr = now.getHours()%12;
+const numbers=document.getElementById("numbers");
 
-    document.getElementById("second").style.transform =
-        `rotate(${sec*6}deg)`;
+for(let i=1;i<=12;i++){
 
-    document.getElementById("minute").style.transform =
-        `rotate(${min*6}deg)`;
+let num=document.createElement("div");
+num.className="number";
 
-    document.getElementById("hour").style.transform =
-        `rotate(${hr*30 + min*0.5}deg)`;
-}
+let angle=(i-3)*30*Math.PI/180;
 
-setInterval(updateClock,1000);
-updateClock();
-</script>
+let x=Math.cos(angle)*210;
+let y=Math.sin(angle)*210;
 
-</body>
-</html>
+num.style.left=`calc(50% + ${x
