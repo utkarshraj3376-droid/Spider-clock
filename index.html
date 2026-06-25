@@ -3,164 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spider Clock</title>
+<title>Wing  v2.0</title>
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
 body{
-    margin:0;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    overflow:hidden;
-    font-family:Arial,sans-serif;
+background:#0f172a;
+color:white;
+height:100vh;
 }
 
-.clock{
-    position:relative;
-    width:500px;
-    height:500px;
+.hidden{
+display:none;
 }
 
-.number{
-    position:absolute;
-    color:#666;
-    font-size:40px;
-    font-weight:bold;
-    left:50%;
-    top:50%;
-    transform-origin:center;
+/* LOGIN */
+
+#authPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
 
-.spider{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
+.auth-box{
+width:90%;
+max-width:380px;
+background:rgba(255,255,255,.1);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:20px;
+text-align:center;
 }
 
-.spider-body{
-    width:55px;
-    height:75px;
-    background:white;
-    border-radius:50%;
-    position:absolute;
-    left:-27px;
-    top:-35px;
-    box-shadow:0 0 20px white;
+.logo{
+font-size:55px;
+margin-bottom:10px;
 }
 
-.leg{
-    position:absolute;
-    width:80px;
-    height:3px;
-    background:white;
-    transform-origin:left center;
+.auth-box h1{
+margin-bottom:20px;
 }
 
-.hand{
-    position:absolute;
-    left:0;
-    top:0;
-    transform-origin:bottom center;
+.auth-box input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:12px;
+outline:none;
 }
 
-.hour{
-    width:6px;
-    height:110px;
-    background:white;
+.auth-box button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:white;
+color:#2563eb;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
 }
 
-.minute{
-    width:4px;
-    height:150px;
-    background:white;
+/* CHAT */
+
+#chatPage{
+display:flex;
+height:100vh;
 }
 
-.second{
-    width:2px;
-    height:190px;
-    background:#aaa;
+.sidebar{
+width:280px;
+background:#111827;
+padding:20px;
+overflow:auto;
 }
 
-.web{
-    position:absolute;
-    border:2px solid rgba(255,255,255,0.3);
-    border-radius:50%;
+.sidebar h2{
+margin-bottom:20px;
 }
 
-.web1{
-    width:150px;
-    height:150px;
-    top:120px;
-    left:80px;
+.group{
+background:#1e293b;
+padding:12px;
+border-radius:12px;
+margin-bottom:10px;
+cursor:pointer;
 }
 
-.web2{
-    width:150px;
-    height:150px;
-    top:120px;
-    right:80px;
+.chat-area{
+flex:1;
+display:flex;
+flex-direction:column;
+background:#0f172a;
 }
 
-.web3{
-    width:100px;
-    height:100px;
-    bottom:90px;
-    left:120px;
+.topbar{
+padding:15px;
+background:#1e293b;
+font-weight:bold;
+font-size:18px;
 }
 
-.web4{
-    width:100px;
-    height:100px;
-    bottom:90px;
-    right:120px;
+.messages{
+flex:1;
+overflow:auto;
+padding:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.message{
+padding:12px;
+max-width:75%;
+border-radius:15px;
+}
+
+.received{
+background:#334155;
+align-self:flex-start;
+}
+
+.sent{
+background:#2563eb;
+align-self:flex-end;
+}
+
+.input-area{
+display:flex;
+padding:10px;
+background:#1e293b;
+}
+
+.input-area input{
+flex:1;
+padding:12px;
+border:none;
+border-radius:25px;
+outline:none;
+}
+
+.input-area button{
+margin-left:10px;
+padding:12px 20px;
+border:none;
+border-radius:25px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+@media(max-width:768px){
+
+.sidebar{
+width:100px;
+}
+
+.sidebar h2{
+font-size:16px;
+}
+
+.group{
+font-size:12px;
+}
 }
 </style>
 </head>
-
 <body>
 
-<div class="clock">
+<!-- LOGIN PAGE -->
 
-<div class="web web1"></div>
-<div class="web web2"></div>
-<div class="web web3"></div>
-<div class="web web4"></div>
+<div id="authPage">
 
-<div id="numbers"></div>
+<div class="auth-box">
 
-<div class="spider">
+<div class="logo">🪽</div>
 
-<div class="hand hour" id="hour"></div>
-<div class="hand minute" id="minute"></div>
-<div class="hand second" id="second"></div>
+<h1>Wing</h1>
 
-<div class="spider-body"></div>
+<input type="text" id="username" placeholder="Username">
 
-<div class="leg" style="transform:rotate(-70deg)"></div>
-<div class="leg" style="transform:rotate(-40deg)"></div>
-<div class="leg" style="transform:rotate(-20deg)"></div>
-<div class="leg" style="transform:rotate(20deg)"></div>
-<div class="leg" style="transform:rotate(40deg)"></div>
-<div class="leg" style="transform:rotate(70deg)"></div>
+<input type="password" placeholder="Password">
+
+<button onclick="login()">Login / Signup</button>
 
 </div>
+
+</div>
+
+<!-- CHAT PAGE -->
+
+<div id="chatPage" class="hidden">
+
+<div class="sidebar">
+
+<h2>🪽 Wing</h2>
+
+<div class="group">👥 General Chat</div>
+<div class="group">🔥 Friends</div>
+<div class="group">🎮 Gamers</div>
+<div class="group">📚 Study Group</div>
+
+</div>
+
+<div class="chat-area">
+
+<div class="topbar">
+👥 General Chat
+</div>
+
+<div class="messages" id="messages">
+
+<div class="message received">
+Welcome to Wing 🪽
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input type="text" id="msgInput"
+placeholder="Type message...">
+
+<button onclick="sendMessage()">
+Send
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
 
-const numbers=document.getElementById("numbers");
+function login(){
 
-for(let i=1;i<=12;i++){
+let user =
+document.getElementById("username").value;
 
-let num=document.createElement("div");
-num.className="number";
+if(user.trim()==""){
+alert("Enter Username");
+return;
+}
 
-let angle=(i-3)*30*Math.PI/180;
+document.getElementById("authPage")
+.classList.add("hidden");
 
-let x=Math.cos(angle)*210;
-let y=Math.sin(angle)*210;
+document.getElementById("chatPage")
+.classList.remove("hidden");
+}
 
-num.style.left=`calc(50% + ${x
+function sendMessage(){
+
+let input =
+document.getElementById("msgInput");
+
+let text=input.value.trim();
+
+if(text=="") return;
+
+let msg=document.createElement("div");
+
+msg.className="message sent";
+
+msg.innerText=text;
+
+document.getElementById("messages")
+.appendChild(msg);
+
+input.value="";
+
+document.getElementById("messages")
+.scrollTop=
+document.getElementById("messages")
+.scrollHeight;
+}
+
+</script>
+
+</body>
+</html>
